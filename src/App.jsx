@@ -216,7 +216,6 @@ export default function ClaimGuardSA() {
   const [tab, setTab] = useState('search');
   const [catF, setCatF] = useState('All');
   const [searched, setSearched] = useState(false);
-  const [letterCondition, setLetterCondition] = useState(null);
   const ref = useRef(null);
   const dq = useDebounce(query, 150);
   const eng = useMemo(() => new PMBSearch(D), []);
@@ -249,16 +248,14 @@ export default function ClaimGuardSA() {
         <style>{`@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 10px rgba(96,165,250,.6)}50%{opacity:.5;box-shadow:0 0 4px rgba(96,165,250,.3)}}input::placeholder{color:rgba(139,163,188,.45)}button:hover{filter:brightness(1.1)}*::-webkit-scrollbar{width:6px}*::-webkit-scrollbar-track{background:transparent}*::-webkit-scrollbar-thumb{background:rgba(96,165,250,.15);border-radius:3px}*::-webkit-scrollbar-thumb:hover{background:rgba(96,165,250,.25)}@media(max-width:900px){.cg-grid{grid-template-columns:1fr!important}}`}</style>
       </header>
       <nav style={S.nav}>
-        {[{id:'search',lb:'🔍 PMB Search'},{id:'cdl',lb:'📋 CDL Conditions'},{id:'browse',lb:'📂 Browse DTPs'},{id:'letter',lb:'📝 Dispute Letter'},{id:'guide',lb:'⚖️ Appeal Guide'}].map(t=>(
+        {[{id:'search',lb:'🔍 PMB Search'},{id:'cdl',lb:'📋 CDL Conditions'},{id:'browse',lb:'📂 Browse DTPs'}].map(t=>(
           <button key={t.id} onClick={()=>{setTab(t.id);setSel(null);}} style={{...S.tb,...(tab===t.id?S.tbA:{})}}>{t.lb}</button>
         ))}
       </nav>
       <main style={S.main}>
-        {tab==='search'&&<SearchTab q={query} setQ={setQuery} res={results} searched={searched} sel={sel} setSel={setSel} cats={cats} catF={catF} setCatF={setCatF} clear={clear} iRef={ref} onGenerateLetter={(cond,code)=>{setLetterCondition({condition:cond,code});setTab('letter');}}/>}
+        {tab==='search'&&<SearchTab q={query} setQ={setQuery} res={results} searched={searched} sel={sel} setSel={setSel} cats={cats} catF={catF} setCatF={setCatF} clear={clear} iRef={ref}/>}
         {tab==='cdl'&&<CDLTab items={cdl}/>}
         {tab==='browse'&&<BrowseTab dtps={D} cats={cats}/>}
-        {tab==='letter'&&<LetterTab letterCondition={letterCondition} setLetterCondition={setLetterCondition}/>}
-        {tab==='guide'&&<GuideTab/>}
       </main>
       <footer style={S.ftr}>
         <p style={{margin:0}}>ClaimGuard SA · Medical Advisory Services · GEMS · Data: CMS PMB ICD-10 Coded List (Circular 47/2022)</p>
@@ -271,7 +268,7 @@ export default function ClaimGuardSA() {
 // ---------------------------------------------------------------------------
 // SEARCH TAB
 // ---------------------------------------------------------------------------
-function SearchTab({q,setQ,res,searched,sel,setSel,cats,catF,setCatF,clear,iRef,onGenerateLetter}) {
+function SearchTab({q,setQ,res,searched,sel,setSel,cats,catF,setCatF,clear,iRef}) {
   const matchedCodes = useMemo(() => {
     if (!q || q.length < 2) return 0;
     const ql = q.trim().toLowerCase();
@@ -346,7 +343,7 @@ function SearchTab({q,setQ,res,searched,sel,setSel,cats,catF,setCatF,clear,iRef,
           ))}
           </div>
         </div>
-        {sel&&<DetailPanel r={sel} q={q} onGenerateLetter={onGenerateLetter}/>}
+        {sel&&<DetailPanel r={sel} q={q}/>}
       </div>
     )}
   </div>);
@@ -355,7 +352,7 @@ function SearchTab({q,setQ,res,searched,sel,setSel,cats,catF,setCatF,clear,iRef,
 // ---------------------------------------------------------------------------
 // DETAIL PANEL
 // ---------------------------------------------------------------------------
-function DetailPanel({r, q, onGenerateLetter}) {
+function DetailPanel({r, q}) {
   const [showAll, setShowAll] = useState(false);
   const [selCode, setSelCode] = useState(null);
   const S = styles;
@@ -407,17 +404,6 @@ function DetailPanel({r, q, onGenerateLetter}) {
           <p style={{marginTop:10,fontSize:11,opacity:.5}}>CMS Complaints: complaints@medicalschemes.co.za · 0861 123 267</p>
         </div>
       </div>
-      {onGenerateLetter && (
-        <div style={S.detSec}>
-          <h4 style={S.detLbl}><span>📝</span> Generate Dispute Letter</h4>
-          <p style={{fontSize:12,color:'#64748B',margin:'0 0 10px',lineHeight:1.5}}>
-            {selCode ? `Selected: ${selCode[0]} — ${selCode[1].substring(0,60)}${selCode[1].length>60?'…':''}` : 'Click an ICD-10 code above to select it, or generate with the first code.'}
-          </p>
-          <button onClick={()=>onGenerateLetter(r, selCode || r.codes[0])} style={{background:'linear-gradient(135deg,rgba(96,165,250,.12),rgba(56,189,248,.08))',border:'1px solid rgba(96,165,250,.2)',color:'#60A5FA',padding:'10px 20px',borderRadius:8,fontSize:13,cursor:'pointer',fontWeight:700,display:'flex',alignItems:'center',gap:8,transition:'all .2s'}}>
-            📝 Generate FIRAC Dispute Letter
-          </button>
-        </div>
-      )}
     </div>
   );
 }
@@ -502,222 +488,8 @@ function BrowseTab({dtps, cats}) {
 // ---------------------------------------------------------------------------
 // APPEAL GUIDE TAB
 // ---------------------------------------------------------------------------
-function GuideTab() {
-  const S = styles;
-  const steps = [
-    {l:'F',t:'Facts',c:'Document clinical presentation, ICD-10 codes submitted, treatment rendered, amounts claimed vs settled, provider details, DSP status. Cross-reference the ICD-10 code against ClaimGuard to confirm DTP applicability and Treatment Component.'},
-    {l:'I',t:'Issue',c:'Frame the central question: Does the condition meet the PMB definition per Annexure A? Was the Treatment Component adhered to? Was the denial based on a tariff rule (billing frequency) or a clinical exclusion? Is this a Regulation 8(1) funding dispute vs a non-DSP co-payment issue?'},
-    {l:'R',t:'Rule',c:'Cite: Medical Schemes Act 131/1998 s29(1)(o); Regulation 8(1) — schemes must pay in full for PMB at DSP; CMS Circular 47/2022 PMB Coded List; relevant CDL provisions. The Treatment Component defines the scheme\'s minimum legal obligation. For non-DSP: Regulation 8(5) — involuntary non-DSP preserves PMB rights.'},
-    {l:'A',t:'Application',c:'Map ICD-10 code to its DTP. Quote the Treatment Component verbatim from ClaimGuard. If denied treatment appears in the Treatment Component, the denial violates Regulation 8(1). Address DSP status — emergency presentation or DSP inaccessibility constitutes involuntary non-DSP usage. Distinguish between tariff modifier rules and clinical exclusions under Regulation 8.'},
-    {l:'C',t:'Conclusion',c:'State whether the claim should be funded as PMB. Quantify the shortfall. Recommend remedy: full settlement per Treatment Component, or escalation to CMS Registrar. Note: CMS rulings are not precedent-setting but inform future strategy.'},
-  ];
-  const cmsSteps = [
-    { step: 1, title: "Exhaust Internal Process", desc: "Submit formal dispute to your scheme's Principal Officer. Allow 30 days for response.", icon: "📝" },
-    { step: 2, title: "Gather Evidence", desc: "Collect claim statements, rejection letters, clinical notes, pre-auth correspondence, and scheme rules.", icon: "📂" },
-    { step: 3, title: "Register on CMS Portal", desc: "Visit complaints.medicalschemes.co.za and create an account.", icon: "🌐" },
-    { step: 4, title: "Submit CMS Complaint", desc: "File complaint within 6 months of the dispute. Include all evidence and scheme's response.", icon: "📤" },
-    { step: 5, title: "CMS Investigation", desc: "CMS will investigate and may request additional information from you and the scheme.", icon: "🔍" },
-    { step: 6, title: "Ruling & Appeal", desc: "CMS issues a ruling. Either party may appeal to the Appeal Board within 60 days.", icon: "⚖️" },
-  ];
-  return (<div>
-    <div style={{marginBottom:24}}>
-      <h2 style={{fontSize:20,fontWeight:700,margin:'0 0 8px'}}>CMS Appeal & FIRAC Framework</h2>
-      <p style={{fontSize:13,opacity:.5,margin:0,maxWidth:720,lineHeight:1.6}}>When a PMB claim is denied or short-paid, use this structured approach to build a regulatory-compliant appeal using the Treatment Component from ClaimGuard.</p>
-    </div>
-
-    <h3 style={{fontSize:14,fontWeight:700,color:'#60A5FA',margin:'0 0 12px',textTransform:'uppercase',letterSpacing:'1px'}}>FIRAC Methodology</h3>
-    <div style={{display:'flex',flexDirection:'column',gap:10,marginBottom:28}}>
-      {steps.map((s,i)=>(
-        <div key={i} style={{display:'flex',gap:14,padding:'18px 20px',background:'#263545',borderRadius:12,border:'1px solid rgba(96,165,250,.08)',transition:'all .2s'}}>
-          <div style={{width:46,height:46,borderRadius:12,flexShrink:0,background:'linear-gradient(135deg,rgba(96,165,250,.15),rgba(56,189,248,.1))',border:'1px solid rgba(96,165,250,.25)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:22,fontWeight:800,color:'#60A5FA',boxShadow:'0 2px 8px rgba(96,165,250,.08)'}}>{s.l}</div>
-          <div><h4 style={{fontSize:15,fontWeight:700,margin:'0 0 5px'}}>{s.t}</h4><p style={{fontSize:12,color:'#7B8FA6',margin:0,lineHeight:1.65}}>{s.c}</p></div>
-        </div>
-      ))}
-    </div>
-
-    <h3 style={{fontSize:14,fontWeight:700,color:'#FBBF24',margin:'0 0 12px',textTransform:'uppercase',letterSpacing:'1px'}}>CMS Complaint Escalation Pathway</h3>
-    <div style={{display:'flex',flexDirection:'column',gap:0,marginBottom:24}}>
-      {cmsSteps.map((step, i) => (
-        <div key={i} style={{ display: "flex", gap: 16 }}>
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", width: 42 }}>
-            <div style={{width:38,height:38,borderRadius:'50%',background:'rgba(251,191,36,.08)',border:'1px solid rgba(251,191,36,.15)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:16,flexShrink:0}}>{step.icon}</div>
-            {i < cmsSteps.length - 1 && <div style={{ width: 2, flex: 1, background:'linear-gradient(180deg,rgba(251,191,36,.15),rgba(251,191,36,.05))', minHeight: 32 }} />}
-          </div>
-          <div style={{ paddingBottom: 20, flex: 1 }}>
-            <div style={{fontSize:10,fontWeight:700,color:'#FBBF24',letterSpacing:'1px',marginBottom:3,textTransform:'uppercase'}}>Step {step.step}</div>
-            <h4 style={{ fontSize: 14, fontWeight: 600, margin: "0 0 3px", color: "#E8EDF3" }}>{step.title}</h4>
-            <p style={{ fontSize: 12, color: '#8BA3BC', margin: 0, lineHeight: 1.6 }}>{step.desc}</p>
-          </div>
-        </div>
-      ))}
-    </div>
-
-    <div style={{background:'rgba(96,165,250,.06)',border:'1px solid rgba(96,165,250,.12)',borderRadius:12,padding:'18px 22px',fontSize:13,lineHeight:1.8}}>
-      <h4 style={{marginBottom:8,color:'#60A5FA',fontSize:13,fontWeight:700}}>Key Regulatory References</h4>
-      <p style={{margin:'0 0 3px'}}>Medical Schemes Act 131 of 1998 · Section 29(1)(o) — Mandatory PMB provision</p>
-      <p style={{margin:'0 0 3px'}}>Regulation 8(1) — Full payment without co-payment at DSP</p>
-      <p style={{margin:'0 0 3px'}}>Section 47 — Right to lodge complaint with CMS Registrar</p>
-      <p style={{margin:'0 0 3px'}}>Section 50 — CMS powers to investigate and resolve disputes</p>
-      <p style={{margin:'0 0 3px'}}>Regulation 15H — Pre-authorisation requirements and timelines</p>
-      <p style={{margin:'0 0 3px'}}>CMS Circular 47 of 2022 · PMB ICD-10 Coded List</p>
-      <p style={{margin:'0 0 3px',color:'#7B8FA6'}}>CMS Complaints: complaints@medicalschemes.co.za · 0861 123 267</p>
-      <p style={{margin:0,opacity:.6}}>GEMS Internal: Medical Advisory Services · Clinical review via Medscheme MCO</p>
-    </div>
-  </div>);
-}
-
-// ---------------------------------------------------------------------------
-// DISPUTE LETTER GENERATOR
-// ---------------------------------------------------------------------------
-function generateDisputeLetter(condition, code, memberName, schemeName, memberNumber) {
-  const today = new Date().toLocaleDateString("en-ZA", { day: "numeric", month: "long", year: "numeric" });
-  const codeStr = code ? (Array.isArray(code) ? code[0] : code.icd10 || '') : (condition.codes[0]?.[0] || '');
-  const descStr = code ? (Array.isArray(code) ? code[1] : code.desc || '') : (condition.codes[0]?.[1] || condition.n);
-  const condDesc = condition.n || condition.desc || '';
-  const treatment = condition.t || condition.treatment || '';
-  const pmbCode = condition.d || condition.pmb || '';
-  const isCDL = condition.l || condition.isCDL || false;
-  
-  const legalBasis = isCDL
-    ? `The condition ${condDesc} is listed as a Chronic Disease List (CDL) condition under the PMB regulations. CDL conditions require ongoing treatment funding as specified in the treatment algorithms.`
-    : `The condition ${condDesc} falls under Diagnosis Treatment Pair (DTP) code ${pmbCode} in the PMB regulations, which mandates full funding for the prescribed treatment.`;
-
-  return `FORMAL DISPUTE: NON-PAYMENT / SHORT-PAYMENT OF PRESCRIBED MINIMUM BENEFIT
-
-Date: ${today}
-Member: ${memberName || "[Member Name]"}
-Membership No: ${memberNumber || "[Membership Number]"}
-Scheme: ${schemeName || "[Scheme Name]"}
-
-Dear Principal Officer,
-
-RE: DISPUTE OF CLAIM REJECTION/SHORT-PAYMENT — ${condDesc.toUpperCase()} (ICD-10: ${codeStr})
-
-1. FACTS
-I am a registered member of ${schemeName || "[Scheme Name]"} (membership number: ${memberNumber || "[Membership Number]"}). I was diagnosed with ${descStr} (ICD-10 code: ${codeStr}) and received treatment as prescribed by my treating healthcare provider. The scheme has declined to fund / has short-paid the costs associated with this treatment.
-
-2. ISSUE
-Whether the diagnosis of ${descStr} (${codeStr}) constitutes a Prescribed Minimum Benefit (PMB) condition, and whether the scheme is obligated to fund the treatment in full, without co-payment or the use of deductibles.
-
-3. RULE / LEGAL BASIS
-Section 29(1)(o) of the Medical Schemes Act 131 of 1998 requires that every medical scheme must provide as a minimum benefit the diagnosis, treatment, and care costs of the PMB conditions as prescribed by the Minister of Health.
-
-Regulation 8 of the Medical Schemes Act provides that no co-payment or deductible may be applied to PMB conditions when the member uses the scheme's Designated Service Provider (DSP) network.
-
-${legalBasis}
-
-Treatment component: ${treatment}
-
-4. APPLICATION
-Based on the above, the scheme is legally obligated to fund the full cost of treatment for ${condDesc} as a PMB condition. The rejection/short-payment of my claim is contrary to the provisions of the Medical Schemes Act and the PMB regulations.
-
-5. CONCLUSION / RELIEF SOUGHT
-I respectfully request that the scheme:
-(a) Reverse the rejection/short-payment of the relevant claims;
-(b) Process payment in full for all costs related to the treatment of ${condDesc};
-(c) Provide written confirmation of the above within 30 days.
-
-Should the scheme fail to resolve this matter, I reserve the right to escalate this complaint to the Council for Medical Schemes (CMS) in terms of Section 47 of the Medical Schemes Act.
-
-Yours faithfully,
-
-${memberName || "[Member Name]"}
-Contact: [Email / Phone]
-
-Enclosures:
-- Copy of rejected/short-paid claim statement
-- Clinical notes and diagnosis from treating practitioner
-- Any pre-authorisation correspondence`;
-}
-
-// ---------------------------------------------------------------------------
 // LETTER TAB
 // ---------------------------------------------------------------------------
-function LetterTab({letterCondition, setLetterCondition}) {
-  const [memberName, setMemberName] = useState('');
-  const [schemeName, setSchemeName] = useState('');
-  const [memberNumber, setMemberNumber] = useState('');
-  const [generated, setGenerated] = useState(false);
-  const [copied, setCopied] = useState(false);
-  const S = styles;
-
-  const handleCopy = (text) => {
-    navigator.clipboard.writeText(text);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2500);
-  };
-
-  return (<div>
-    <div style={{marginBottom:20}}>
-      <h2 style={{fontSize:19,fontWeight:700,margin:'0 0 6px'}}>Generate FIRAC Dispute Letter</h2>
-      <p style={{fontSize:13,color:'#7B8FA6',margin:0,lineHeight:1.5,maxWidth:700}}>
-        {letterCondition
-          ? `Pre-loaded: ${letterCondition.condition.n||letterCondition.condition.desc} (${Array.isArray(letterCondition.code)?letterCondition.code[0]:letterCondition.code?.icd10||''}). Fill in your details to generate a formal dispute letter.`
-          : 'Use the PMB Search tab to find a condition and click "Generate Dispute Letter" to pre-load it here.'}
-      </p>
-    </div>
-
-    <div style={{background:'#263545',borderRadius:12,border:'1px solid rgba(96,165,250,.1)',padding:'20px',marginBottom:16}}>
-      <h4 style={S.detLbl}><span>👤</span> Member Details</h4>
-      <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:12,marginBottom:12}}>
-        <div>
-          <label style={{fontSize:11,fontWeight:600,color:'#8BA3BC',display:'block',marginBottom:6,textTransform:'uppercase',letterSpacing:'.5px'}}>Full Name</label>
-          <input value={memberName} onChange={e=>setMemberName(e.target.value)} placeholder="e.g. John Mokoena" style={{width:'100%',background:'#1E2A3A',border:'1px solid rgba(96,165,250,.12)',borderRadius:8,padding:'10px 14px',color:'#E8EDF3',fontSize:13,outline:'none',boxSizing:'border-box',fontFamily:'inherit'}}/>
-        </div>
-        <div>
-          <label style={{fontSize:11,fontWeight:600,color:'#8BA3BC',display:'block',marginBottom:6,textTransform:'uppercase',letterSpacing:'.5px'}}>Membership Number</label>
-          <input value={memberNumber} onChange={e=>setMemberNumber(e.target.value)} placeholder="e.g. GEM12345678" style={{width:'100%',background:'#1E2A3A',border:'1px solid rgba(96,165,250,.12)',borderRadius:8,padding:'10px 14px',color:'#E8EDF3',fontSize:13,outline:'none',boxSizing:'border-box',fontFamily:'inherit'}}/>
-        </div>
-      </div>
-      <div>
-        <label style={{fontSize:11,fontWeight:600,color:'#8BA3BC',display:'block',marginBottom:6,textTransform:'uppercase',letterSpacing:'.5px'}}>Medical Scheme / Option</label>
-        <input value={schemeName} onChange={e=>setSchemeName(e.target.value)} placeholder="e.g. GEMS Emerald Value" style={{width:'100%',background:'#1E2A3A',border:'1px solid rgba(96,165,250,.12)',borderRadius:8,padding:'10px 14px',color:'#E8EDF3',fontSize:13,outline:'none',boxSizing:'border-box',fontFamily:'inherit'}}/>
-      </div>
-    </div>
-
-    {letterCondition && (
-      <div style={{background:'rgba(45,212,191,.06)',borderRadius:12,border:'1px solid rgba(45,212,191,.12)',padding:'16px 20px',marginBottom:16}}>
-        <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:8}}>
-          <h4 style={{...S.detLbl,margin:0}}>🏷️ Selected Condition</h4>
-          <button onClick={()=>setLetterCondition(null)} style={{background:'rgba(139,163,188,.1)',border:'none',color:'#8BA3BC',padding:'4px 10px',borderRadius:6,fontSize:11,cursor:'pointer'}}>✕ Clear</button>
-        </div>
-        <p style={{fontSize:14,fontWeight:600,margin:'0 0 4px'}}>{letterCondition.condition.n||letterCondition.condition.desc}</p>
-        <p style={{fontSize:12,opacity:.55,margin:0}}>
-          DTP: {letterCondition.condition.d||letterCondition.condition.pmb} · ICD-10: {Array.isArray(letterCondition.code)?letterCondition.code[0]:letterCondition.code?.icd10||''}
-          {(letterCondition.condition.l||letterCondition.condition.isCDL) && ' · CDL Condition'}
-        </p>
-      </div>
-    )}
-
-    <button onClick={()=>setGenerated(true)} disabled={!letterCondition}
-      style={{background:letterCondition?'linear-gradient(135deg,#3B82F6,#0EA5E9)':'rgba(139,163,188,.1)',border:'none',color:letterCondition?'#FFFFFF':'#7B8FA6',padding:'12px 28px',borderRadius:9,fontSize:14,cursor:letterCondition?'pointer':'not-allowed',fontWeight:700,transition:'all .2s',display:'flex',alignItems:'center',gap:8,marginBottom:20}}>
-      📝 Generate Dispute Letter
-    </button>
-
-    {generated && letterCondition && (
-      <div style={{background:'#263545',borderRadius:12,border:'1px solid rgba(96,165,250,.1)',overflow:'hidden',boxShadow:'0 2px 12px rgba(0,0,0,.1)'}}>
-        <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',padding:'14px 20px',background:'linear-gradient(135deg,rgba(96,165,250,.08),rgba(56,189,248,.04))',borderBottom:'1px solid rgba(59,130,246,.08)'}}>
-          <h4 style={{...S.detLbl,margin:0}}>📄 Generated Dispute Letter</h4>
-          <button onClick={()=>handleCopy(generateDisputeLetter(letterCondition.condition,letterCondition.code,memberName,schemeName,memberNumber))}
-            style={{background:copied?'rgba(45,212,191,.12)':'rgba(139,163,188,.08)',border:'1px solid',borderColor:copied?'rgba(45,212,191,.2)':'rgba(139,163,188,.12)',color:copied?'#2DD4BF':'#8BA3BC',padding:'6px 14px',borderRadius:7,fontSize:12,cursor:'pointer',fontWeight:600,transition:'all .2s'}}>
-            {copied ? '✓ Copied!' : '📋 Copy to Clipboard'}
-          </button>
-        </div>
-        <pre style={{margin:0,padding:20,fontSize:12,lineHeight:1.7,color:'#C4D1DE',fontFamily:"'Source Code Pro','Courier New',monospace",whiteSpace:'pre-wrap',wordWrap:'break-word',maxHeight:500,overflowY:'auto',background:'rgba(30,42,58,.8)'}}>
-          {generateDisputeLetter(letterCondition.condition,letterCondition.code,memberName,schemeName,memberNumber)}
-        </pre>
-      </div>
-    )}
-
-    {!letterCondition && (
-      <div style={S.empty}>
-        <div style={{fontSize:44,marginBottom:10}}>📝</div>
-        <p style={{fontWeight:600}}>No condition selected</p>
-        <p style={{color:'#7B8FA6',fontSize:13,maxWidth:460,margin:'6px auto'}}>Go to the PMB Search tab, find a condition, select an ICD-10 code, and click "Generate Dispute Letter" to pre-load the condition here.</p>
-      </div>
-    )}
-  </div>);
-}
 
 // ---------------------------------------------------------------------------
 // STYLES
