@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(gh repo view:*)",
+      "Bash(gh api:*)",
+      "Bash(gh repo list:*)",
+      "WebFetch(domain:phuzamanzegiza.github.io)",
+      "Bash(gh run list:*)",
+      "Bash(gh run view:*)",
+      "Bash(git fetch:*)",
+      "Bash(npm run build:*)",
+      "Bash(ls:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(git reset:*)",
+      "Bash(gh workflow run:*)",
+      "Bash(curl:*)",
+      "Bash(gh repo create:*)",
+      "Bash(git remote set-url:*)"
+    ]
+  }
+}

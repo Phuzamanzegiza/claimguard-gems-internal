@@ -1,0 +1,68 @@
+{
+  "source": "https://www.gems.gov.za/Information/Fact-Sheet",
+  "retrieved": "2026-03-15",
+  "employer_subsidy_pct": 75,
+  "employer_subsidy_max_zar": 4987,
+  "options": [
+    {
+      "id": "tanzanite-one",
+      "name": "Tanzanite One",
+      "tier": "entry",
+      "tier_label": "Entry Level",
+      "network_dependent": true,
+      "savings_account": false,
+      "description": "Entry Level Care-coordinated Network Option which provides In-Hospital benefits within a defined hospital network subject to an annual hospital limit. Out-of-Hospital benefits subject to GEMS Network and FP nomination and Specialist rules.",
+      "colour": "#00AC9F"
+    },
+    {
+      "id": "beryl",
+      "name": "Beryl",
+      "tier": "entry",
+      "tier_label": "Entry Level",
+      "network_dependent": true,
+      "savings_account": false,
+      "description": "Entry Level Network Option that provides In-Hospital benefits subject to an annual hospital limit. Out-of-Hospital benefits subject to GEMS network.",
+      "colour": "#5DCAA5"
+    },
+    {
+      "id": "ruby",
+      "name": "Ruby",
+      "tier": "mid",
+      "tier_label": "Mid Level",
+      "network_dependent": false,
+      "savings_account": true,
+      "description": "Mid-Level Savings Option which offers members Comprehensive In-Hospital benefits. Out-of-Hospital benefits subject to a Savings account and Block Benefit.",
+      "colour": "#D51F29"
+    },
+    {
+      "id": "emerald-value",
+      "name": "Emerald Value",
+      "tier": "high",
+      "tier_label": "High Level",
+      "network_dependent": true,
+      "savings_account": false,
+      "description": "High Level Care-coordinated Network Option which provides Comprehensive In-Hospital benefits within a defined hospital network. Comprehensive Out-of-Hospital benefits subject to GEMS network, FP nomination. Day-to-day Block Benefit.",
+      "colour": "#19A349"
+    },
+    {
+      "id": "emerald",
+      "name": "Emerald",
+      "tier": "high",
+      "tier_label": "High Level",
+      "network_dependent": false,
+      "savings_account": false,
+      "description": "High Level Benefit Option which provides Comprehensive In-Hospital benefits and Comprehensive Out-of-Hospital benefits subject to Day-to-day Block Benefit and Primary Care Extender Benefit.",
+      "colour": "#026635"
+    },
+    {
+      "id": "onyx",
+      "name": "Onyx",
+      "tier": "top",
+      "tier_label": "Top Level",
+      "network_dependent": false,
+      "savings_account": false,
+      "description": "Top Level Benefit Option which provides Comprehensive In-Hospital benefits and Comprehensive Out-of-Hospital benefits subject to a high value Day-to-day Block Benefit.",
+      "colour": "#0B4E80"
+    }
+  ]
+}
