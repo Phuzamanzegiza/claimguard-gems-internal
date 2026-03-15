@@ -5,26 +5,26 @@
   "guidelines": [
     {
       "id": "cms-pmb-regulations",
-      "title": "Prescribed Minimum Benefits Regulations",
+      "title": "Prescribed Minimum Benefits — PMB Conditions",
       "category": "Regulatory",
-      "description": "Full PMB regulation text — Medical Schemes Act, 1998 (Act No. 131 of 1998), Annexure A.",
-      "href": "https://www.medicalschemes.co.za/prescribed-minimum-benefits/",
+      "description": "Full PMB condition list — Medical Schemes Act, 1998 (Act No. 131 of 1998), Annexure A.",
+      "href": "https://www.medicalschemes.co.za/resources/pmb/pmb-conditions/",
       "source": "Council for Medical Schemes (CMS)"
     },
     {
       "id": "cms-cdl-list",
-      "title": "Chronic Disease List (CDL) — 26 Conditions",
+      "title": "Chronic Disease List (CDL) — Chronic Benefits",
       "category": "Regulatory",
       "description": "Official 26-condition Chronic Disease List with ICD-10 codes and DSP requirements.",
-      "href": "https://www.medicalschemes.co.za/medical-schemes-legislation/chronic-disease-list/",
+      "href": "https://www.medicalschemes.co.za/consumer-assistance/chronic-benefits/",
       "source": "Council for Medical Schemes (CMS)"
     },
     {
       "id": "cms-circular-47-2022",
-      "title": "CMS Circular 47 of 2022 — DTP Algorithms",
+      "title": "CMS Circular 47 of 2022 — PMB Coded List & DTP Algorithms",
       "category": "Regulatory",
       "description": "Defines Algorithm A, B, and C for determining PMB funding obligations at DSP and non-DSP providers.",
-      "href": "https://www.medicalschemes.co.za/download/cms-circular-47-2022/",
+      "href": "https://www.medicalschemes.co.za/latest-publication/circular-47-of-2022-pmb-coded-list/",
       "source": "Council for Medical Schemes (CMS)"
     },
     {
@@ -40,7 +40,7 @@
       "title": "GEMS Designated Service Provider Network",
       "category": "GEMS Reference",
       "description": "DSP provider search — required for Tanzanite One, Beryl, and Emerald Value network-dependent options.",
-      "href": "https://www.gems.gov.za/Members/Designated-Service-Provider",
+      "href": "https://www.gems.gov.za/Healthcare-Providers/Designated-Service-Providers",
       "source": "GEMS (gems.gov.za)"
     },
     {
@@ -53,18 +53,18 @@
     },
     {
       "id": "doh-essential-medicines",
-      "title": "Essential Medicines List — National Department of Health",
+      "title": "Standard Treatment Guidelines and Essential Medicines List",
       "category": "CDL Management",
       "description": "Standard Treatment Guidelines and Essential Medicines List for primary, hospital, and chronic care levels.",
-      "href": "https://www.health.gov.za/essential-medicines/",
-      "source": "National Department of Health (DoH)"
+      "href": "https://knowledgehub.health.gov.za/content/standard-treatment-guidelines-and-essential-medicines-list",
+      "source": "National Department of Health Knowledge Hub"
     },
     {
       "id": "semdsa-diabetes",
-      "title": "SEMDSA Guidelines for the Management of Type 2 Diabetes",
+      "title": "SEMDSA Guidelines for the Diagnosis and Management of Type 2 Diabetes Mellitus",
       "category": "CDL Management",
-      "description": "South African clinical practice guidelines for Type 2 Diabetes Mellitus (ICD-10: E11) — diagnosis, targets, and medication protocols.",
-      "href": "https://semdsa.org.za/guidelines/",
+      "description": "South African clinical practice guidelines for Type 2 Diabetes Mellitus (ICD-10: E11) — diagnosis, targets, and medication protocols. Published in Journal of Endocrinology, Metabolism and Diabetes of South Africa.",
+      "href": "https://doi.org/10.1080/20786204.2010.10874035",
       "source": "Society for Endocrinology, Metabolism and Diabetes of South Africa (SEMDSA)"
     },
     {
@@ -72,56 +72,56 @@
       "title": "South African Hypertension Practice Guidelines",
       "category": "CDL Management",
       "description": "Clinical guidelines for the diagnosis and management of hypertension (ICD-10: I10) in the South African context.",
-      "href": "https://www.saheart.co.za/guidelines/",
-      "source": "South African Heart Association (SAHA)"
+      "href": "https://www.hypertension.org.za/guidelines",
+      "source": "Hypertension South Africa"
     },
     {
       "id": "sats-asthma",
-      "title": "SATS Asthma Guidelines",
+      "title": "Guidelines for the Management of Asthma in Adults (2021)",
       "category": "CDL Management",
-      "description": "South African Thoracic Society guidelines for asthma (ICD-10: J45) — stepwise management and monitoring.",
-      "href": "https://www.thoracic.org.za/guidelines/",
-      "source": "South African Thoracic Society (SATS)"
+      "description": "South African Thoracic Society 2021 position statement on the management of asthma (ICD-10: J45) — stepwise management and monitoring.",
+      "href": "https://pulmonology.co.za/wp-content/uploads/2022/04/Guidelines-for-the-management-of-asthma-in-adults.pdf",
+      "source": "South African Thoracic Society via Pulmonology journal"
     },
     {
       "id": "sasop-mental-health",
-      "title": "SASOP Treatment Guidelines for Psychiatric Conditions",
+      "title": "South African Journal of Psychiatry — Practice Guidelines",
       "category": "Mental Health",
       "description": "Psychiatric management guidelines covering depression (F32), bipolar disorder (F31), and schizophrenia (F20) — CDL-relevant codes.",
-      "href": "https://www.sasop.co.za/guidelines/",
-      "source": "South African Society of Psychiatrists (SASOP)"
+      "href": "https://sajp.org.za",
+      "source": "South African Journal of Psychiatry (SAJP)"
     },
     {
       "id": "nimart-hiv",
-      "title": "NIMART Learner Manual — HIV and ARV Management",
+      "title": "NIMART Online Course — HIV and ARV Management",
       "category": "CDL Management",
-      "description": "Nurse Initiated and Managed Antiretroviral Therapy guidelines for HIV (ICD-10: B24) clinical management and monitoring.",
-      "href": "https://www.health.gov.za/nimart/",
-      "source": "National Department of Health (DoH) — NIMART Programme"
+      "description": "Nurse Initiated and Managed Antiretroviral Therapy guidelines for HIV (ICD-10: B24) — clinical management and monitoring.",
+      "href": "https://www.sahivsoc.org/Subheader/Index/nimart-online-course",
+      "source": "Southern African HIV Clinicians Society (SAHIVSOC)"
     },
     {
       "id": "savf-oncology",
-      "title": "ICON Oncology Clinical Guidelines — South Africa",
+      "title": "ICON Chemotherapy Standards and Guidelines",
       "category": "Oncology",
       "description": "Oncology treatment guidelines relevant to PMB oncology benefits — chemotherapy, radiation, supportive care protocols.",
-      "href": "https://www.cssa.org.za/guidelines/",
-      "source": "Clinical Society of South Africa (CSSA)"
+      "href": "https://iconsa.co.za/wp-content/uploads/2018/07/ICON_Chemotherapy_Standards_and_Guidelines_FINAL_20171218.pdf",
+      "source": "Icon Oncology SA"
     },
     {
       "id": "doh-maternity",
-      "title": "Maternity Care Guidelines — National Maternity and Perinatal Survey",
+      "title": "Maternal Care Guidelines — Complete Maternal Book",
       "category": "Maternity",
       "description": "South African maternity care protocols covering antenatal, intrapartum, and postnatal PMB benefits.",
-      "href": "https://www.health.gov.za/maternity-care/",
-      "source": "National Department of Health (DoH)"
+      "href": "https://knowledgehub.health.gov.za/system/files/elibdownloads/2023-04/CompleteMaternalBook.pdf",
+      "source": "National Department of Health Knowledge Hub"
     },
     {
       "id": "masa-emergency",
-      "title": "Emergency Medical Services — MASA Protocols",
+      "title": "Emergency Medicine Practice Guidelines — EMSSA",
       "category": "Emergency Care",
-      "description": "Medical Association of South Africa emergency care protocols — relevant to Algorithm B PMB emergency funding obligations.",
-      "href": "https://www.masa.org.za/emergency-protocols/",
-      "source": "Medical Association of South Africa (MASA)"
+      "description": "Emergency Medicine Society of South Africa practice guidelines — relevant to Algorithm B PMB emergency funding obligations.",
+      "href": "https://emssa.org.za/practice-guidelines/",
+      "source": "Emergency Medicine Society of South Africa (EMSSA)"
     }
   ]
 }
