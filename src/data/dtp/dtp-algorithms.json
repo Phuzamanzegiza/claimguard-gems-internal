@@ -1,0 +1,47 @@
+{
+  "source": "Council for Medical Schemes — Circular 47 of 2022 (PMB DTPs)",
+  "retrieved": "2026-03-15",
+  "algorithms": [
+    {
+      "id": "algorithm-a",
+      "label": "Algorithm A",
+      "summary": "DSP-funded PMB care",
+      "description": "The medical scheme must fund prescribed minimum benefits at a Designated Service Provider (DSP) at cost — meaning no co-payment may be levied when the member uses the scheme's DSP. If the member chooses a non-DSP provider without a valid clinical reason, the scheme is obliged to fund only up to the DSP tariff rate, and the provider may charge the member the difference.",
+      "key_rules": [
+        "No co-payment when member uses scheme DSP.",
+        "Non-DSP use: scheme pays DSP rate; provider may bill the balance.",
+        "Scheme must make DSP access reasonable (within 50 km or 1 hour travel).",
+        "Emergency exemptions apply — see Algorithm B provisions."
+      ],
+      "applicability": "Applies to most chronic (CDL) conditions and scheduled elective PMB procedures where a DSP network is in place."
+    },
+    {
+      "id": "algorithm-b",
+      "label": "Algorithm B",
+      "summary": "Emergency PMB care at any provider",
+      "description": "The medical scheme must fund emergency PMB treatment at any registered service provider — regardless of whether that provider is a DSP. Once the member has been stabilised, the scheme may require transfer to a DSP for continued care. No co-payment may be levied for the emergency episode itself.",
+      "key_rules": [
+        "Emergency treatment funded at any provider, at cost.",
+        "No co-payment for the acute emergency episode.",
+        "Post-stabilisation: scheme may require transfer to DSP.",
+        "Scheme must cover reasonable ambulance and transport costs.",
+        "Member cannot be denied emergency care due to scheme network rules."
+      ],
+      "applicability": "Applies to all life-threatening emergencies and acute presentations where immediate DSP access is not possible or safe."
+    },
+    {
+      "id": "algorithm-c",
+      "label": "Algorithm C",
+      "summary": "PMB care at cost — any provider",
+      "description": "The medical scheme must fund prescribed minimum benefits at cost regardless of the service provider — DSP or non-DSP — and no co-payment may be levied. This is the most comprehensive funding obligation and applies where the scheme has not established a DSP network for the condition, or where the CMS has determined that DSP restriction is not appropriate.",
+      "key_rules": [
+        "PMBs funded at actual cost — no co-payment, no shortfall.",
+        "Applies to both DSP and non-DSP providers.",
+        "Scheme cannot restrict provider choice for conditions governed by Algorithm C.",
+        "Applicable where no DSP network exists for the specific DTP.",
+        "Mental health PMBs are predominantly governed by Algorithm C."
+      ],
+      "applicability": "Applies to conditions where DSP restriction is not feasible or not approved by CMS — including many mental health, oncology, and rare-disease DTPs."
+    }
+  ]
+}

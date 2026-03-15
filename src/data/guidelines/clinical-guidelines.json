@@ -1,0 +1,127 @@
+{
+  "source": "South African public clinical guidelines — GEMS MAS quick-reference",
+  "retrieved": "2026-03-15",
+  "note": "All links point to publicly available regulatory and clinical reference documents. No personal data. For internal GEMS MAS reference use only.",
+  "guidelines": [
+    {
+      "id": "cms-pmb-regulations",
+      "title": "Prescribed Minimum Benefits Regulations",
+      "category": "Regulatory",
+      "description": "Full PMB regulation text — Medical Schemes Act, 1998 (Act No. 131 of 1998), Annexure A.",
+      "href": "https://www.medicalschemes.co.za/prescribed-minimum-benefits/",
+      "source": "Council for Medical Schemes (CMS)"
+    },
+    {
+      "id": "cms-cdl-list",
+      "title": "Chronic Disease List (CDL) — 26 Conditions",
+      "category": "Regulatory",
+      "description": "Official 26-condition Chronic Disease List with ICD-10 codes and DSP requirements.",
+      "href": "https://www.medicalschemes.co.za/medical-schemes-legislation/chronic-disease-list/",
+      "source": "Council for Medical Schemes (CMS)"
+    },
+    {
+      "id": "cms-circular-47-2022",
+      "title": "CMS Circular 47 of 2022 — DTP Algorithms",
+      "category": "Regulatory",
+      "description": "Defines Algorithm A, B, and C for determining PMB funding obligations at DSP and non-DSP providers.",
+      "href": "https://www.medicalschemes.co.za/download/cms-circular-47-2022/",
+      "source": "Council for Medical Schemes (CMS)"
+    },
+    {
+      "id": "gems-fact-sheet",
+      "title": "GEMS Benefit Options Fact Sheet",
+      "category": "GEMS Reference",
+      "description": "Official GEMS benefit option summary — Tanzanite One, Beryl, Ruby, Emerald Value, Emerald, Onyx. Tier structure, network dependency, employer subsidy.",
+      "href": "https://www.gems.gov.za/Information/Fact-Sheet",
+      "source": "GEMS (gems.gov.za)"
+    },
+    {
+      "id": "gems-dsp-network",
+      "title": "GEMS Designated Service Provider Network",
+      "category": "GEMS Reference",
+      "description": "DSP provider search — required for Tanzanite One, Beryl, and Emerald Value network-dependent options.",
+      "href": "https://www.gems.gov.za/Members/Designated-Service-Provider",
+      "source": "GEMS (gems.gov.za)"
+    },
+    {
+      "id": "who-icd10-browser",
+      "title": "WHO ICD-10 Online Browser (Version 2019)",
+      "category": "ICD-10 Reference",
+      "description": "World Health Organization ICD-10 code browser — authoritative source for all diagnosis codes.",
+      "href": "https://icd.who.int/browse10/2019/en",
+      "source": "World Health Organization (WHO)"
+    },
+    {
+      "id": "doh-essential-medicines",
+      "title": "Essential Medicines List — National Department of Health",
+      "category": "CDL Management",
+      "description": "Standard Treatment Guidelines and Essential Medicines List for primary, hospital, and chronic care levels.",
+      "href": "https://www.health.gov.za/essential-medicines/",
+      "source": "National Department of Health (DoH)"
+    },
+    {
+      "id": "semdsa-diabetes",
+      "title": "SEMDSA Guidelines for the Management of Type 2 Diabetes",
+      "category": "CDL Management",
+      "description": "South African clinical practice guidelines for Type 2 Diabetes Mellitus (ICD-10: E11) — diagnosis, targets, and medication protocols.",
+      "href": "https://semdsa.org.za/guidelines/",
+      "source": "Society for Endocrinology, Metabolism and Diabetes of South Africa (SEMDSA)"
+    },
+    {
+      "id": "saheart-hypertension",
+      "title": "South African Hypertension Practice Guidelines",
+      "category": "CDL Management",
+      "description": "Clinical guidelines for the diagnosis and management of hypertension (ICD-10: I10) in the South African context.",
+      "href": "https://www.saheart.co.za/guidelines/",
+      "source": "South African Heart Association (SAHA)"
+    },
+    {
+      "id": "sats-asthma",
+      "title": "SATS Asthma Guidelines",
+      "category": "CDL Management",
+      "description": "South African Thoracic Society guidelines for asthma (ICD-10: J45) — stepwise management and monitoring.",
+      "href": "https://www.thoracic.org.za/guidelines/",
+      "source": "South African Thoracic Society (SATS)"
+    },
+    {
+      "id": "sasop-mental-health",
+      "title": "SASOP Treatment Guidelines for Psychiatric Conditions",
+      "category": "Mental Health",
+      "description": "Psychiatric management guidelines covering depression (F32), bipolar disorder (F31), and schizophrenia (F20) — CDL-relevant codes.",
+      "href": "https://www.sasop.co.za/guidelines/",
+      "source": "South African Society of Psychiatrists (SASOP)"
+    },
+    {
+      "id": "nimart-hiv",
+      "title": "NIMART Learner Manual — HIV and ARV Management",
+      "category": "CDL Management",
+      "description": "Nurse Initiated and Managed Antiretroviral Therapy guidelines for HIV (ICD-10: B24) clinical management and monitoring.",
+      "href": "https://www.health.gov.za/nimart/",
+      "source": "National Department of Health (DoH) — NIMART Programme"
+    },
+    {
+      "id": "savf-oncology",
+      "title": "ICON Oncology Clinical Guidelines — South Africa",
+      "category": "Oncology",
+      "description": "Oncology treatment guidelines relevant to PMB oncology benefits — chemotherapy, radiation, supportive care protocols.",
+      "href": "https://www.cssa.org.za/guidelines/",
+      "source": "Clinical Society of South Africa (CSSA)"
+    },
+    {
+      "id": "doh-maternity",
+      "title": "Maternity Care Guidelines — National Maternity and Perinatal Survey",
+      "category": "Maternity",
+      "description": "South African maternity care protocols covering antenatal, intrapartum, and postnatal PMB benefits.",
+      "href": "https://www.health.gov.za/maternity-care/",
+      "source": "National Department of Health (DoH)"
+    },
+    {
+      "id": "masa-emergency",
+      "title": "Emergency Medical Services — MASA Protocols",
+      "category": "Emergency Care",
+      "description": "Medical Association of South Africa emergency care protocols — relevant to Algorithm B PMB emergency funding obligations.",
+      "href": "https://www.masa.org.za/emergency-protocols/",
+      "source": "Medical Association of South Africa (MASA)"
+    }
+  ]
+}

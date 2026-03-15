@@ -1,4 +1,10 @@
 import { useState, useEffect, useRef, useMemo, useCallback } from "react";
+import { FilterSidebar } from './components/filters/FilterSidebar.jsx';
+import { IcdSearchBar } from './components/search/IcdSearchBar.jsx';
+import { BenefitOptionScope } from './components/options/BenefitOptionScope.jsx';
+import { ClinicalGuidelinesPanel } from './components/guidelines/ClinicalGuidelinesPanel.jsx';
+import { useSavedSearch } from './hooks/useSavedSearch.js';
+import { getEmptyFilterState } from './lib/filters.js';
 
 // ════════════════════════════════════════════════════════════════════════════
 // CLAIMGUARD SA — PMB Regulatory Lookup Engine (Full CMS Dataset)
@@ -217,6 +223,8 @@ export default function ClaimGuardSA() {
   const [catF, setCatF] = useState('All');
   const [searched, setSearched] = useState(false);
   const ref = useRef(null);
+  const [filters, setFilters] = useState(getEmptyFilterState);
+  const { saved, save: saveFilter, clear: clearFilter } = useSavedSearch();
   const dq = useDebounce(query, 150);
   const eng = useMemo(() => new PMBSearch(D), []);
   const cats = useMemo(() => eng.categories(), [eng]);
@@ -248,7 +256,7 @@ export default function ClaimGuardSA() {
         <style>{`@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 10px rgba(96,165,250,.6)}50%{opacity:.5;box-shadow:0 0 4px rgba(96,165,250,.3)}}input::placeholder{color:rgba(139,163,188,.45)}button:hover{filter:brightness(1.1)}*::-webkit-scrollbar{width:6px}*::-webkit-scrollbar-track{background:transparent}*::-webkit-scrollbar-thumb{background:rgba(96,165,250,.15);border-radius:3px}*::-webkit-scrollbar-thumb:hover{background:rgba(96,165,250,.25)}@media(max-width:900px){.cg-grid{grid-template-columns:1fr!important}}`}</style>
       </header>
       <nav style={S.nav}>
-        {[{id:'search',lb:'🔍 PMB Search'},{id:'cdl',lb:'📋 CDL Conditions'},{id:'browse',lb:'📂 Browse DTPs'}].map(t=>(
+        {[{id:'search',lb:'🔍 PMB Search'},{id:'cdl',lb:'📋 CDL Conditions'},{id:'browse',lb:'📂 Browse DTPs'},{id:'filters',lb:'⚙️ PMB Filters'},{id:'icd',lb:'🏥 ICD-10 Search'},{id:'options',lb:'💎 GEMS Options'},{id:'guidelines',lb:'📖 Guidelines'}].map(t=>(
           <button key={t.id} onClick={()=>{setTab(t.id);setSel(null);}} style={{...S.tb,...(tab===t.id?S.tbA:{})}}>{t.lb}</button>
         ))}
       </nav>
@@ -256,11 +264,50 @@ export default function ClaimGuardSA() {
         {tab==='search'&&<SearchTab q={query} setQ={setQuery} res={results} searched={searched} sel={sel} setSel={setSel} cats={cats} catF={catF} setCatF={setCatF} clear={clear} iRef={ref}/>}
         {tab==='cdl'&&<CDLTab items={cdl}/>}
         {tab==='browse'&&<BrowseTab dtps={D} cats={cats}/>}
+        {tab==='filters'&&<FiltersTab filters={filters} setFilters={setFilters} saved={saved} onSave={()=>saveFilter(filters)} onClear={clearFilter}/>}
+        {tab==='icd'&&<div style={{maxWidth:780,margin:'0 auto'}}><IcdSearchBar/></div>}
+        {tab==='options'&&<div style={{maxWidth:780,margin:'0 auto'}}><BenefitOptionScope/></div>}
+        {tab==='guidelines'&&<div style={{maxWidth:780,margin:'0 auto'}}><ClinicalGuidelinesPanel/></div>}
       </main>
       <footer style={S.ftr}>
         <p style={{margin:0}}>ClaimGuard SA · Medical Advisory Services · GEMS · Data: CMS PMB ICD-10 Coded List (Circular 47/2022)</p>
         <p style={{fontSize:10,marginTop:5,color:'#5A7088',maxWidth:700,margin:'5px auto 0'}}>Disclaimer: This tool assists with PMB identification. Final eligibility depends on clinical criteria in Annexure A. Codes only serve to assist in identification of possible PMB conditions — the condition must fully meet the DTP descriptor criteria.</p>
       </footer>
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// FILTERS TAB
+// ---------------------------------------------------------------------------
+function FiltersTab({ filters, setFilters, saved, onSave, onClear }) {
+  const handleChange = (dimension, value) => setFilters(f => ({ ...f, [dimension]: value }));
+  const handleClearAll = () => setFilters({ benefitCategory: [], benefitType: [], gemsOption: [], icd10Chapter: [], dtpAlgorithm: [], fundingModel: [] });
+  const handleRestore = () => saved && setFilters(saved.filters);
+  const C = { navy:'#0B4E80', green:'#19A349', gold:'#F0A920', blue:'#1376B7' };
+  return (
+    <div style={{ maxWidth: 480, margin: '0 auto' }}>
+      <div style={{ display:'flex', gap:8, marginBottom:14, flexWrap:'wrap' }}>
+        <button onClick={onSave} style={{ padding:'6px 14px', fontSize:12, fontWeight:600, borderRadius:8, border:'1px solid rgba(25,163,73,.35)', background:'rgba(25,163,73,.1)', color:C.green, cursor:'pointer' }}>
+          💾 Save filters
+        </button>
+        {saved && (
+          <button onClick={handleRestore} style={{ padding:'6px 14px', fontSize:12, fontWeight:600, borderRadius:8, border:'1px solid rgba(19,118,183,.35)', background:'rgba(19,118,183,.1)', color:C.blue, cursor:'pointer' }}>
+            ↩ Restore saved
+          </button>
+        )}
+        {saved && (
+          <button onClick={onClear} style={{ padding:'6px 14px', fontSize:12, fontWeight:600, borderRadius:8, border:'1px solid rgba(213,31,41,.25)', background:'rgba(213,31,41,.06)', color:'#D51F29', cursor:'pointer' }}>
+            🗑 Clear saved
+          </button>
+        )}
+        {saved && (
+          <span style={{ fontSize:10, color:'#3A5068', alignSelf:'center' }}>
+            Saved {new Date(saved.savedAt).toLocaleString()}
+          </span>
+        )}
+      </div>
+      <FilterSidebar filters={filters} onFilterChange={handleChange} onClearAll={handleClearAll} />
     </div>
   );
 }
