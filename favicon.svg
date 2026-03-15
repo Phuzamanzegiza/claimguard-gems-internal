@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E2A3A"/>
+      <stop offset="100%" stop-color="#263545"/>
+    </linearGradient>
+    <linearGradient id="shield" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#60A5FA"/>
+      <stop offset="100%" stop-color="#2DD4BF"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#60A5FA" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#2DD4BF" stop-opacity="0.08"/>
+    </linearGradient>
+    <linearGradient id="txt" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#60A5FA"/>
+      <stop offset="50%" stop-color="#38BDF8"/>
+      <stop offset="100%" stop-color="#2DD4BF"/>
+    </linearGradient>
+    <filter id="shieldShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="6" flood-color="#60A5FA" flood-opacity="0.3"/>
+    </filter>
+    <filter id="textGlow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="0" stdDeviation="2" flood-color="#60A5FA" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="200" height="200" rx="28" fill="url(#bg)"/>
+
+  <!-- Subtle radial glow -->
+  <circle cx="100" cy="85" r="70" fill="url(#glow)"/>
+
+  <!-- Shield body -->
+  <g filter="url(#shieldShadow)" transform="translate(100,78)">
+    <path d="M0-48 L40-32 L40 8 C40 32 0 52 0 52 C0 52 -40 32 -40 8 L-40-32 Z" 
+          fill="none" stroke="url(#shield)" stroke-width="3.5" stroke-linejoin="round"/>
+    <!-- Inner shield fill -->
+    <path d="M0-42 L35-28 L35 6 C35 28 0 46 0 46 C0 46 -35 28 -35 6 L-35-28 Z" 
+          fill="url(#glow)" opacity="0.6"/>
+    <!-- Medical cross + checkmark combo -->
+    <!-- Cross horizontal -->
+    <rect x="-14" y="-8" width="28" height="5" rx="1.5" fill="url(#shield)" opacity="0.35"/>
+    <!-- Cross vertical -->
+    <rect x="-2.5" y="-20" width="5" height="28" rx="1.5" fill="url(#shield)" opacity="0.35"/>
+    <!-- Checkmark -->
+    <polyline points="-10,2 -3,10 12,-8" fill="none" stroke="url(#shield)" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- "SA" flag accent — tiny -->
+  <rect x="128" y="42" width="18" height="3" rx="1.5" fill="#2DD4BF" opacity="0.5"/>
+  <rect x="128" y="47" width="18" height="3" rx="1.5" fill="#FBBF24" opacity="0.5"/>
+  <rect x="128" y="52" width="18" height="3" rx="1.5" fill="#60A5FA" opacity="0.5"/>
+
+  <!-- App name -->
+  <text x="100" y="152" text-anchor="middle" font-family="'SF Pro Display','Segoe UI',system-ui,sans-serif" font-size="18" font-weight="800" fill="url(#txt)" filter="url(#textGlow)" letter-spacing="-0.3">ClaimGuard</text>
+
+  <!-- Subtitle -->
+  <text x="100" y="170" text-anchor="middle" font-family="'SF Mono','Source Code Pro',monospace" font-size="9.5" fill="#8BA3BC" letter-spacing="2.5" font-weight="600">PMB CHECKER</text>
+
+  <!-- Tiny dot indicator -->
+  <circle cx="100" cy="182" r="2.5" fill="#2DD4BF" opacity="0.7"/>
+</svg>
